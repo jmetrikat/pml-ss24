@@ -14,7 +14,7 @@ export Discrete, ℙ, *, /, logsumexp
     logP, which stores a vector of LOG PROBABILITIES as floats
 """
 struct Discrete{T}
-    ##TODO##
+    logP::Vector{Float64}
 end
 
 """
@@ -33,7 +33,7 @@ julia> Discrete([0.0, 0.0, 1.0])
 Discrete{3}([0.0, 0.0, 1.0])
 ```
 """
-Discrete(logP::Vector{Float64}) = ##TODO##
+Discrete(logP::Vector{Float64}) = Discrete{length(logP)}(logP)
 
 """
     Discrete(n::Int64)
@@ -52,10 +52,10 @@ julia> Discrete(3)
  P = [0.3333333333333333, 0.3333333333333333, 0.3333333333333333]
 ```
 """
-Discrete(n::Int64) = ##TODO##
+Discrete(n::Int64) = Discrete([1/n for _ in 1:n])
 
 """
-    *(p::Discrete{T}, q::Float64) -> Discrete{T}
+    *(p::Discrete{T}, q::Discrete{T}) -> Discrete{T}
 
 Multiplies two discrete distributions and returns the new discrete distribution.
 
@@ -70,7 +70,14 @@ julia> Discrete([0.0, 2.0, -1.0]) * Discrete([1.0, 0.0, 1.0])
 ```
 """
 function Base.:*(p::Discrete{T}, q::Discrete{T})::Discrete{T} where {T}
-    ##TODO##
+    if length(p.logP) != length(q.logP)
+        error("The dimensions of the two distributions do not match.")
+    end
+    if T != T
+        error("The types of the two distributions do not match.")
+    end
+
+    return Discrete(exp.(p.logP .+ q.logP) / sum(exp.(p.logP .+ q.logP)))
 end
 
 """
@@ -89,7 +96,14 @@ julia> Discrete([2.0, 0.0, -1.0]) / Discrete([1.0, 0.0, 1.0])
 ```
 """
 function Base.:/(p::Discrete{T}, q::Discrete{T})::Discrete{T} where {T}
-    ##TODO##
+    if length(p.logP) != length(q.logP)
+        error("The dimensions of the two distributions do not match.")
+    end
+    if T != T
+        error("The types of the two distributions do not match.")
+    end
+
+    return Discrete(exp.(p.logP .- q.logP) / sum(exp.(p.logP .- q.logP)))
 end
 
 """
@@ -101,7 +115,7 @@ Should compute the logsumexp function for the respective vector:
 Remember: You can use the . operator to apply functions like exp element wise to each element of an iterable.
 """
 function logsumexp(a::Vector{Float64})
-    ##TODO##
+    return maximum(a) + log(sum(exp.(a .- maximum(a))))
 end
 
 """
@@ -129,7 +143,7 @@ julia> ℙ(Discrete([0.0, 0.0]))
 ```
 """
 function ℙ(p::Discrete)
-    ##TODO##
+    return exp.(p.logP .- logsumexp(p.logP))
 end
 
 """
