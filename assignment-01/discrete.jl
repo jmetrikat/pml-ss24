@@ -52,7 +52,7 @@ julia> Discrete(3)
  P = [0.3333333333333333, 0.3333333333333333, 0.3333333333333333]
 ```
 """
-Discrete(n::Int64) = Discrete([1/n for _ in 1:n])
+Discrete(n::Int64) = Discrete([0.0 for _ in 1:n])
 
 """
     *(p::Discrete{T}, q::Discrete{T}) -> Discrete{T}
@@ -74,7 +74,7 @@ function Base.:*(p::Discrete{T}, q::Discrete{T})::Discrete{T} where {T}
         error("The types of the two distributions do not match.")
     end
 
-    return Discrete(exp.(p.logP .+ q.logP) / sum(exp.(p.logP .+ q.logP)))
+    return Discrete(p.logP .+ q.logP)
 end
 
 """
@@ -97,7 +97,7 @@ function Base.:/(p::Discrete{T}, q::Discrete{T})::Discrete{T} where {T}
         error("The types of the two distributions do not match.")
     end
 
-    return Discrete(exp.(p.logP .- q.logP) / sum(exp.(p.logP .- q.logP)))
+    return Discrete(p.logP .- q.logP)
 end
 
 """
@@ -137,7 +137,7 @@ julia> ℙ(Discrete([0.0, 0.0]))
 ```
 """
 function ℙ(p::Discrete)
-    return exp.(p.logP .- logsumexp(p.logP))
+    return exp.(p.logP) / sum(exp.(p.logP))
 end
 
 """
