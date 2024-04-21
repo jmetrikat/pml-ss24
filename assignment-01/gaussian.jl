@@ -21,6 +21,9 @@ struct Gaussian1D
         end
         new(tau, rho)
     end
+
+    # default constructor
+    Gaussian1D(tau, rho) = new(tau, rho)
 end
 
 """
