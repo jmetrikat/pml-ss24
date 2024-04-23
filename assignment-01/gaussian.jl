@@ -81,7 +81,7 @@ julia> absdiff(Gaussian1D(0,1),Gaussian1D(0,3))
 1.4142135623730951
 ```
 """
-absdiff(g1::Gaussian1D, g2::Gaussian1D) = max(abs(g1.tau - g2.tau), sqrt(abs(g1.rho-g2.rho)))
+absdiff(g1::Gaussian1D, g2::Gaussian1D) = max(abs(g1.tau - g2.tau), sqrt(abs(g1.rho - g2.rho)))
 
 """
     *(g1,g2)

@@ -64,8 +64,7 @@ Uniform:  P = [0.2, 0.2, 0.2, 0.2, 0.2]
 ```
 """
 function add!(db::DistributionBag{T}) where {T}
-    push!(db.bag, db.uniform)
-    return length(db.bag)
+    return length(push!(db.bag, db.uniform))
 end
 
 """
@@ -102,9 +101,7 @@ Uniform:  P = [0.2, 0.2, 0.2, 0.2, 0.2]
 ```
 """
 function reset!(db::DistributionBag{T}) where {T}
-    for i in eachindex(db.bag)
-        db.bag[i] = db.uniform
-    end
+    fill!(db.bag, db.uniform)
 end
 
 """
@@ -129,7 +126,7 @@ julia> db[1]
  P = [0.2, 0.2, 0.2, 0.2, 0.2]
 ```
 """
-Base.getindex(db::DistributionBag{T}, i::Int64) where {T} = return db.bag[i]
+Base.getindex(db::DistributionBag{T}, i::Int64) where {T} = db.bag[i]
 
 """
     setindex(db::DistributionBag{T},d::T,i::Int64)
@@ -196,7 +193,7 @@ julia> db[begin]
  P = [0.0704547896272078, 0.19151597437154377, 0.19151597437154377, 0.5205943929937957, 0.025918868635908737]
 ```
 """
-Base.firstindex(db::DistributionBag{T}) where {T} = return 1
+Base.firstindex(db::DistributionBag{T}) where {T} = 1
 
 """
     lastindex(db::DistributionBag{T})
@@ -232,7 +229,7 @@ julia> db[end]
  P = [0.2, 0.2, 0.2, 0.2, 0.2]
 ```
 """
-Base.lastindex(db::DistributionBag{T}) where {T} = return length(db.bag)
+Base.lastindex(db::DistributionBag{T}) where {T} = length(db.bag)
 
 """
     size(db::DistributionBag{T})
@@ -256,7 +253,7 @@ julia> size(db)
 
 ```
 """
-Base.size(db::DistributionBag{T}) where {T} = return (length(db.bag),)
+Base.size(db::DistributionBag{T}) where {T} = (length(db.bag),)
 
 """
     IndexStyle(db::DistributionBag{T})
@@ -281,7 +278,7 @@ Discrete{5}
 
 ```
 """
-Base.eltype(::Type{<:DistributionBag{T}}) where {T} = return T
+Base.eltype(::Type{<:DistributionBag{T}}) where {T} = T
 
 """
     iterate(db::DistributionBag, i=1)

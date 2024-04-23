@@ -70,10 +70,6 @@ julia> Discrete([0.0, 2.0, -1.0]) * Discrete([1.0, 0.0, 1.0])
 ```
 """
 function Base.:*(p::Discrete{T}, q::Discrete{T})::Discrete{T} where {T}
-    if typeof(p) != typeof(q)
-        error("The types of the two distributions do not match.")
-    end
-
     return Discrete(p.logP .+ q.logP)
 end
 
@@ -93,10 +89,6 @@ julia> Discrete([2.0, 0.0, -1.0]) / Discrete([1.0, 0.0, 1.0])
 ```
 """
 function Base.:/(p::Discrete{T}, q::Discrete{T})::Discrete{T} where {T}
-    if typeof(p) != typeof(q)
-        error("The types of the two distributions do not match.")
-    end
-
     return Discrete(p.logP .- q.logP)
 end
 
