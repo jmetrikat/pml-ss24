@@ -129,7 +129,7 @@ julia> ℙ(Discrete([0.0, 0.0]))
 ```
 """
 function ℙ(p::Discrete)
-    return exp.(p.logP) / sum(exp.(p.logP))
+    return exp.(p.logP .- logsumexp(p.logP))
 end
 
 """

@@ -31,5 +31,5 @@ end
 
 @testset "Conversion of logprobs to probabilities" begin
     d = ℙ(Discrete([1.0, -1.0]))
-    @test all(d == [0.8807970779778824, 0.11920292202211756])
+    @test all(d == [0.8807970779778823, 0.11920292202211753])
 end
