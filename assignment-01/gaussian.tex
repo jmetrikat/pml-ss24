@@ -1,0 +1,190 @@
+\documentclass[12pt]{scrartcl}
+
+\usepackage{geometry}
+\geometry{top=15mm, headheight=70pt, headsep=25pt, inner=1.25in, outer=1.25in}
+
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage{
+	enumerate,
+	amsthm,
+	xcolor,
+	graphicx,
+	amsmath,
+	amssymb,
+	latexsym,
+	framed,
+	algorithmicx,
+	algorithm,
+	tikz,
+	stmaryrd,
+	enumitem
+}
+\usetikzlibrary{positioning, calc, arrows.meta, decorations.pathreplacing}
+
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\pagestyle{fancy}
+\lhead{\makeNames}
+\rhead{Abgabe Aufgabenblatt \makeSheetNumber}
+\cfoot{\thepage}
+
+\newcommand{\makeheader}{
+\begin{framed}
+	\noindent
+	\makeNames \hfill Probabilistic Machine Learning
+	\begin{center}
+		\Large{\textbf{Assignment \makeSheetNumber}}
+	\end{center}
+	\hfill Sommersemester 2024
+\end{framed}
+}
+
+\newcommand{\names}[1]{\newcommand{\makeNames}{#1}}
+\newcommand{\group}[1]{\newcommand{\makeGroup}{#1}}
+\newcommand{\sheetNumber}[1]{\newcommand{\makeSheetNumber}{#1}}
+%%% End Header Definitions %%%
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{satz}{Satz}
+
+\newtheoremstyle{exercise}% name of the style to be used
+{2em}% measure of space to leave above the theorem.
+{1em}% measure of space to leave below the theorem.
+{\addtolength{\leftskip}{\parindent}}% name of font to use in the body of the theorem
+{-\parindent}% measure of space to indent
+{\bfseries}% name of head font
+{:}% punctuation between head and body
+{\newline}% space after theorem head; " " = normal interword space
+{}% Manually specify head
+\theoremstyle{exercise}
+\newtheorem{exercise}{Aufgabe}
+\newtheorem*{exercise*}{Aufgabe}
+\newtheorem*{solution}{Lösung}
+\newtheorem*{points}{Bepunktung}
+\newtheorem{bonus}{Bonusaufgabe}
+\renewcommand{\thebonus}{B\arabic{bonus}}
+
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\renewcommand{\labelenumii}{(\roman{enumii})}
+
+\newcommand*{\bigO}{\mathrm{O}}
+\newcommand*{\Oh}{\mathrm{O}}
+\newcommand*{\bigOmega}{\Omega}
+\newcommand*{\smallO}{\mathrm{o}}
+\newcommand*{\smallOmega}{\upomega}
+
+\newcommand*{\natnum}{\mathbb{N}}
+\newcommand*{\integers}{\mathbb{Z}}
+\newcommand*{\rationals}{\mathbb{Q}}
+\newcommand*{\realnum}{\mathbb{R}}
+
+\newcommand{\comment}[1]{\textcolor{blue}{[#1]}}
+
+\newcommand{\set}[2]{\{ #1 \mid #2 \}}
+
+\newcommand{\CalA}{\mathcal{A}}
+\newcommand{\CalC}{\mathcal{C}}
+\newcommand{\CalP}{\mathcal{P}}
+\newcommand{\CalM}{\mathcal{M}}
+\newcommand{\CalR}{\mathcal{R}}
+\newcommand{\CalS}{\mathcal{S}}
+
+\newcommand{\eqnComment}[2]{\underset{{\scriptstyle \text{#1}}}{#2}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Your Data goes here %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\names{Jannis Metrikat, Philipp Hendel} % Hier die Name aller Abgebenden
+\sheetNumber{1} % Hier die Zahl des Aufgabenblatts
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Your Definitions go here %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+	\thispagestyle{empty}
+	\makeheader
+
+	% ---------------------------------------------------------------------------
+
+	\begin{exercise*}
+		\
+
+		\begin{enumerate}
+			\item Show that $\mathcal{N}(x;\mu,\sigma^{2})= G(x; \frac{\mu}{\sigma^{2}}
+				, \frac{1}{\sigma^{2}})$:
+
+				\begin{align*}
+					G(x, \frac{\mu}{\sigma^{2}}, \frac{1}{\sigma^{2}}) & = \sqrt{\frac{\frac{1}{\sigma^{2}}}{2 \pi}}\cdot \exp\Big(- \frac{(\frac{\mu}{\sigma^2})^{2}}{2 \frac{1}{\sigma^{2}}}\Big) \cdot \exp\Big(\frac{\mu}{\sigma^{2}}\cdot x - \frac{1}{\sigma^{2}}\frac{x^{2}}{2}\Big) \\
+					                                                   & = \sqrt{\frac{1}{2 \pi \sigma^{2} }}\cdot \exp\Big(- \frac{\mu^{2}}{2\sigma^{2}}+ \frac{2\mu x}{2\sigma^{2}}- \frac{x^{2}}{2 \sigma^{2}}\Big)                                                                      \\
+					                                                   & = \sqrt{\frac{1}{2 \pi \sigma^{2} }}\cdot \exp\Big(- \frac{1}{2} \cdot \frac{(x - \mu)^{2}}{\sigma^{2}}\Big)                                                                                                       \\
+					                                                   & = \mathcal{N}(x;\mu,\sigma^{2})
+				\end{align*}
+
+			\item Show that $G(x; \tau, \rho) = \mathcal{N}(x; \frac{\tau}{\rho},\frac{1}{\rho}
+				)$:
+
+				\begin{align*}
+					\mathcal{N}(x; \frac{\tau}{\rho},\frac{1}{\rho}) & = \sqrt{\frac{1}{2 \pi \frac{1}{\rho} }}\cdot \exp\Big(- \frac{1}{2} \cdot \frac{(x - \frac{\tau}{\rho})^{2}}{\frac{1}{\rho}}\Big)             \\
+					                                                 & = \sqrt{\frac{\rho}{2 \pi}}\cdot \exp\Big(- \frac{1}{2} \cdot \frac{x^{2} - \frac{2 x \tau}{\rho}+ \frac{\tau^2}{\rho^2}}{\frac{1}{\rho}}\Big) \\
+					                                                 & = \sqrt{\frac{\rho}{2 \pi}}\cdot \exp\Big(-\frac{x^{2} \rho}{2}+ x \tau - \frac{\tau^{2}}{2\rho}\Big)                                          \\
+					                                                 & = \sqrt{\frac{\rho}{2 \pi}}\cdot \exp\Big(-\frac{\tau^{2}}{2\rho}\Big) \cdot \exp\Big(\tau \cdot x -\rho \cdot \frac{x^{2} }{2}\Big)           \\
+					                                                 & = G(x; \tau, \rho)
+				\end{align*}
+
+			\item Write down the formulas for the densities
+				\begin{enumerate}
+					\item
+						\begin{equation*}
+							G(x; \tau_{1}, \rho_{1}) = \sqrt{\frac{\rho_{1}}{2 \pi}}\cdot \exp\Big
+							(-\frac{\tau_{1}^{2}}{2\rho_{1}}\Big) \cdot \exp\Big(\tau_{1} \cdot
+							x - \rho_{1} \cdot \frac{x^{2}}{2}\Big)
+						\end{equation*}
+
+					\item
+						\begin{equation*}
+							G(x; \tau_{2}, \rho_{2}) = \sqrt{\frac{\rho_{2}}{2 \pi}}\cdot \exp\Big
+							(-\frac{\tau_{2}^{2}}{2\rho_{2}}\Big) \cdot \exp\Big(\tau_{2} \cdot
+							x - \rho_{2} \cdot \frac{x^{2}}{2}\Big)
+						\end{equation*}
+
+					\item
+						\begin{equation*}
+							G(x; \tau_{1} + \tau_{2}, \rho_{1} + \rho_{2}) = \sqrt{\frac{\rho_{1}
+							+ \rho_{2}}{2 \pi}}\cdot \exp\Big(-\frac{(\tau_{1} + \tau_{2})^{2}}{2(\rho_{1}
+							+ \rho_{2})}\Big) \cdot \exp\Big((\tau_{1} + \tau_{2}) \cdot x - \rho
+							_{1} + \rho_{2} \cdot \frac{x^{2}}{2}\Big)
+						\end{equation*}
+
+					\item
+						\begin{equation*}
+							\mathcal{N}(\frac{\tau_{1}}{\rho_{1}}; \frac{\tau_{2}}{\rho_{2}}, \frac{1}{\rho_{1}}
+							+ \frac{1}{\rho_{2}}) = \frac{1}{\sqrt{2 \pi (\frac{1}{\rho_{1}} +
+							\frac{1}{\rho_{2}})}}\cdot \exp\Big(- \frac{1}{2} \cdot \frac{(\frac{\tau_1}{\rho_1}-
+							\frac{\tau_2}{\rho_2})^{2}}{\frac{1}{\rho_{1}} +
+							\frac{1}{\rho_{2}}}\Big)
+						\end{equation*}
+				\end{enumerate}
+
+			\item \scriptsize
+				\begin{align*}
+					G(x; \tau_{1}, \rho_{1}) \cdot G(x; \tau_{2}, \rho_{2})                                                                                                                                                                                                                                                                                                                                                                                                            &  \\
+					= G(x; \tau_{1} + \tau_{2}, \rho_{1} + \rho_{2}) \cdot N(\frac{\tau_{1}}{\rho_{1}}; \frac{\tau_{2}}{\rho_{2}}, \frac{1}{\rho_{1}}+ \frac{1}{\rho_{2}})                                                                                                                                                                                                                                                                                                             &  \\
+					\bigg(\sqrt{\frac{\rho_{1}}{2 \pi}}\cdot \exp\big(-\frac{\tau_{1}^{2}}{2\rho_{1}}\big) \cdot \exp\big(\tau_{1} \cdot x - \rho_{1} \cdot \frac{x^{2}}{2}\big)\bigg) \cdot \bigg(\sqrt{\frac{\rho_{2}}{2 \pi}}\cdot \exp\big(-\frac{\tau_{2}^{2}}{2\rho_{2}}\big) \cdot \exp\big(\tau_{2} \cdot x - \rho_{2} \cdot \frac{x^{2}}{2}\big)\bigg)                                                                                                                        &  \\
+					= \bigg( \sqrt{\frac{\rho_{1} + \rho_{2}}{2 \pi}}\cdot \exp\big(-\frac{(\tau_{1} + \tau_{2})^{2}}{2(\rho_{1} + \rho_{2})}\big) \cdot \exp\big((\tau_{1} + \tau_{2}) \cdot x - \rho_{1} + \rho_{2} \cdot \frac{x^{2}}{2}\big) \bigg) \cdot \bigg( \frac{1}{\sqrt{2 \pi (\frac{1}{\rho_{1}} + \frac{1}{\rho_{2}})}}\cdot \exp\big(- \frac{1}{2} \cdot \frac{(\frac{\tau_1}{\rho_1}- \frac{\tau_2}{\rho_2})^{2}}{\frac{1}{\rho_{1}} + \frac{1}{\rho_{2}}}\big) \bigg) &  \\
+					\sqrt{\frac{\rho_{1} \rho2}{4 \pi^{2}}}\cdot \exp\bigg(-\frac{\tau_{1}^{2}}{2\rho_{1}}-\frac{\tau_{2}^{2}}{2\rho_{2}}+ (\tau_{1} + \tau_{2}) \cdot x - \frac{(\rho_{1} + \rho_{2})x^{2}}{2}\bigg)                                                                                                                                                                                                                                                                  &  \\
+					= \sqrt{\frac{\frac{\rho_{1} + \rho_{2}}{2 \pi}}{\frac{2 \pi \rho1_{1} + 2 \pi \rho_{2}}{\rho_{1} \rho_{2}}}}\cdot \exp\bigg(-\frac{(\tau_{1} + \tau_{2})^{2}}{2(\rho_{1} + \rho_{2})}+ (\tau_{1} + \tau_{2}) \cdot x - \frac{(\rho_{1} + \rho_{2})x^{2}}{2}- \frac{1}{2} \cdot \frac{(\frac{\tau_1}{\rho_1}- \frac{\tau_2}{\rho_2})^{2}}{\frac{1}{\rho_{1}} + \frac{1}{\rho_{2}}}\bigg)                                                                           &  \\
+					\sqrt{\frac{\rho_{1} \rho2}{4 \pi^{2}}}\cdot \exp\bigg((\tau_{1} + \tau_{2}) \cdot x - \frac{(\rho_{1} + \rho_{2})x^{2}}{2}-\frac{\tau_{1}^{2}}{2\rho_{1}}-\frac{\tau_{2}^{2}}{2\rho_{2}}+ \frac{(\tau_{1} + \tau_{2})^{2}}{2(\rho_{1} + \rho_{2})}\bigg)                                                                                                                                                                                                          &  \\
+					= \sqrt{\frac{(\rho_{1} + \rho_{2}) \cdot \rho_{1} \rho_{2}}{4 \pi^{2} (\rho_{1} + \rho_{2})}}\cdot \exp\bigg((\tau_{1} + \tau_{2}) \cdot x - \frac{(\rho_{1} + \rho_{2})x^{2}}{2}- \frac{1}{2} \cdot \frac{(\frac{\tau_1}{\rho_1}- \frac{\tau_2}{\rho_2})^{2}}{\frac{1}{\rho_{1}} + \frac{1}{\rho_{2}}}\bigg)                                                                                                                                                     &  \\
+					\sqrt{\frac{\rho_{1} \rho2}{4 \pi^{2}}}\cdot \exp\bigg((\tau_{1} + \tau_{2}) \cdot x - \frac{(\rho_{1} + \rho_{2})x^{2}}{2}- \frac{1}{2}(\frac{\tau_{1}^{2}\rho_{2} + \tau_{2}^{2} \rho_{1}}{\rho_{1} \rho_{2}}- \frac{(\tau_{1} + \tau_{2})^{2}}{(\rho_{1} + \rho_{2})})\bigg)                                                                                                                                                                                    &  \\
+					= \sqrt{\frac{\rho_{1} \rho_{2}}{4 \pi^{2}}}\cdot \exp\bigg((\tau_{1} + \tau_{2}) \cdot x - \frac{(\rho_{1} + \rho_{2})x^{2}}{2}- \frac{1}{2} \cdot \frac{(\frac{\tau_1}{\rho_1}- \frac{\tau_2}{\rho_2})^{2}}{\frac{\rho_{1} + \rho_{2}}{\rho_{1} \rho_{2}}}\bigg)                                                                                                                                                                                                 &  \\
+					\sqrt{\frac{\rho_{1} \rho2}{4 \pi^{2}}}\cdot \exp\bigg((\tau_{1} + \tau_{2}) \cdot x - \frac{(\rho_{1} + \rho_{2})x^{2}}{2}- \frac{1}{2}((\frac{\rho_{1} + \rho_{2}) (\tau_{1}^{2}/\rho_{1} + \tau_{2}^{2} / \rho_{2})- (\tau_{1} + \tau_{2})^{2}}{\rho_{1} + \rho_{2}}\bigg)                                                                                                                                                                                      &  \\
+					= \sqrt{\frac{\rho_{1} \rho_{2}}{4 \pi^{2}}}\cdot \exp\bigg((\tau_{1} + \tau_{2}) \cdot x - \frac{(\rho_{1} + \rho_{2})x^{2}}{2}- \frac{1}{2} \cdot \frac{(\frac{\tau_1}{\rho_1}- \frac{\tau_2}{\rho_2})^{2} \rho_{1} \rho_{2}}{\rho_{1} + \rho_{2}}\bigg)                                                                                                                                                                                                         &  \\
+					\sqrt{\frac{\rho_{1} \rho2}{4 \pi^{2}}}\cdot \exp\bigg((\tau_{1} + \tau_{2}) \cdot x - \frac{(\rho_{1} + \rho_{2})x^{2}}{2}- \frac{1}{2}(\frac{\tau_{1}^{2} + \frac{\rho_1 \tau_2^2}{\rho_2}+ \frac{\rho_2 \tau_1^2}{\rho_1}+ \tau_{2}^{2} - \tau_{1}^{2} - 2\tau_{1}\tau_{2} - \tau_{2}^{2}}{\rho_{1} + \rho_{2}}\bigg)                                                                                                                                           &  \\
+					= \sqrt{\frac{\rho_{1} \rho_{2}}{4 \pi^{2}}}\cdot \exp\bigg((\tau_{1} + \tau_{2}) \cdot x - \frac{(\rho_{1} + \rho_{2})x^{2}}{2}- \frac{1}{2} \cdot \frac{\frac{\tau_1^2\rho_2}{\rho_1}- 2 \tau_{1} \tau_{2} + \frac{\tau_2^2\rho_1}{\rho_2}}{\rho_{1} + \rho_{2}}\bigg)                                                                                                                                                                                           &  \\
+					\sqrt{\frac{\rho_{1} \rho2}{4 \pi^{2}}}\cdot \exp\bigg((\tau_{1} + \tau_{2}) \cdot x - \frac{(\rho_{1} + \rho_{2})x^{2}}{2}- \frac{1}{2}(\frac{\frac{\tau_1^2\rho_2}{\rho_1}- 2 \tau_{1} \tau_{2} + \frac{\tau_2^2\rho_1}{\rho_2}}{\rho_{1} + \rho_{2}}\bigg)                                                                                                                                                                                                      &  \\
+					= \sqrt{\frac{\rho_{1} \rho_{2}}{4 \pi^{2}}}\cdot \exp\bigg((\tau_{1} + \tau_{2}) \cdot x - \frac{(\rho_{1} + \rho_{2})x^{2}}{2}- \frac{1}{2} \cdot \frac{\frac{\tau_1^2\rho_2}{\rho_1}- 2 \tau_{1} \tau_{2} + \frac{\tau_2^2\rho_1}{\rho_2}}{\rho_{1} + \rho_{2}}\bigg)
+				\end{align*}
+		\end{enumerate}
+	\end{exercise*}
+\end{document}
