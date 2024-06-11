@@ -4,7 +4,7 @@ using LinearAlgebra
 export cholesky_decomposition
 
 function cholesky_decomposition(A::Matrix{T}) where T <: AbstractFloat
-    eigenvalues = eigvals(A)
+	eigenvalues = eigvals(A)
 	if !issymmetric(A) || any(eigenvalues .< 0)
 		throw(DomainError("Matrix is not symmetric positive semi-definite"))
 	end
