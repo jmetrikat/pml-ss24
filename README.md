@@ -7,8 +7,8 @@ Exercises in the subject "Probabilistic Machine Learning" at Hasso Plattner Inst
 ## Table of Contents
 
 1. [Gaussian Distribution](./assignment-01/)
-2. [Factor Graphs](./assignment-02/)
+2. [Factor Graphs and Message Passing](./assignment-02/)
 3. [TrueSkill Ranking System](./assignment-03/)
-4. [Regression and Cholesky Decomposition](./assignment-04/)
+4. [Bayesian Regression and Cholesky Decomposition](./assignment-04/)
 5. [Bayesian Linear Classification](./assignment-05/)
-6. [Gaussian Processes](./assignment-06/)
+6. [Gaussian Processes and Gradient Descent](./assignment-06/)
